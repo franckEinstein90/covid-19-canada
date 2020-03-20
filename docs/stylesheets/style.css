@@ -1,0 +1,36 @@
+@import "colors.css";
+@import "frame.css";
+
+.topNav {
+
+    border-left: 10px inset var(--pop); 
+    background-color : var(--peaky); 
+    color : var(--main);
+    z-index : 4;
+    height : 45px; 
+    display : block;
+    padding-left :20px;
+    box-shadow : 4px 4px; 
+}
+
+.topNav button {
+    border-left: 1px inset var(--main); 
+    color: var(--main);
+    font-size: 1.2em;
+    font-style: italic; 
+    font-stretch: ultra-expanded;  
+    display: block;
+    padding-top:10px;
+    cursor: pointer; 
+}
+
+
+.topNav sidebar a.active {
+  background-color: var(--snaple);
+}
+
+.topNav sidebar a:hover:not(.active) {
+  background-color: #555;
+  color: white;
+}
+
