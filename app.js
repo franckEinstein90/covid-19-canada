@@ -5,11 +5,17 @@
 require('module-alias/register')
 /*****************************************************************************/
 const app = {
-   name: 'CanadaCovidTrack'
+    metadata : {
+        appName       : 'CanadaCovidTrack',
+        root          : __dirname, 
+        localDatabase : 'data.db'
+    } 
 }
 /*****************************************************************************/
-require('@server/appEngine').initAppEngine(app)
-app.run()
+require('@common/features').addFeatureSystem( app )
+require('@server/appEngine').initAppEngine( app )
+require('@server/db').addLocalDatabaseFeature( app )
+.then( app => app.run() )
 
 
 

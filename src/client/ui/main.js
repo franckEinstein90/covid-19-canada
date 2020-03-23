@@ -1,12 +1,12 @@
-/******************************************************************************
+/*******************************************************************************
+ *  FranckEinstein90
+ *  CovidCrisis2020
  *
- *
- * ***************************************************************************/
+ *  ui/main.js: entry point for client ui side
+ ******************************************************************************/
 "use strict"
-
  /****************************************************************************/
 
- /****************************************************************************/
 const sections = [
     window, 
     '#viewPort', 
@@ -24,6 +24,8 @@ const addUiComponent = function( app ){
     app.addComponent({label: 'ui'})
     uiSetup( app )  
     require('./appFrame').addAppFrameFeature( app )
+    require('./dataTables').addDataTableFeature( app )
+    return app
 }
 
 module.exports = {
