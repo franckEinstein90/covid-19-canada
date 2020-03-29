@@ -1,32 +1,24 @@
 "use strict"
 
-
-const gsheetsAPI = function( app ) {
+let fetchData = function( url, proxyUrl ){
+  fetch(proxyUrl + url)
+  .then(result => {
     debugger
-    try {
-      const sheetsUrl = [
+  })
+ .catch(e => {
+    debugger
+    return e;
+  });
+}
+const gsheetsAPI = function( app ) {
+
+    let proxyUrl = 'https://cors-anywhere.herokuapp.com/'
+    let sheetID = '2PACX-1vTFY8vXXGJEoT_3l_8tsM1MvwTPZJ75FNz9MtMEryJ38UjK2Osh9R4IsxjhV2cgwf7Yuw_u_C_Y544T'
+    let sheetsUrl = [
           'https://docs.google.com/spreadsheets/d/', 
-          '1D6okqtBS3S2NRC7GFVHzaZ67DuTw7LX49-fqSLwJyeo/'
+          `${sheetID}/`
       ].join('')
-
-      return fetch(sheetsUrl)
-      .then(response => {
-        if(!response.ok) {
-          throw new Error('Error fetching sheet');
-        }
-
-        return response.text();
-      })
-      .then(resultText => {
-        const formattedText = resultText.replace('gdata.io.handleScriptLoaded(','').slice(0, -2);
-        return JSON.parse(formattedText);
-      });
-
-    } catch(err) {
-      console.log(`gsheetsAPI error: ${err}`);
-
-      return {};
-    }
+    fetchData( sheetsUrl, proxyUrl )
 }
 
 module.exports = {
