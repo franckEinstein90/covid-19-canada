@@ -3,16 +3,15 @@
   "version": "0.0.1",
   "description": "tracking across Canada",
   "main": "app.js",
-
   "scripts": {
-    "start"		: "node app.js", 
-    "buildDocsClient"	: "browserify ./src/client/main.js -o ./docs/javascripts/bundle.js", 
-    "test"		: "echo \"Error: no test specified\" && exit 1"
+    "start": "node app.js",
+    "buildDocsClient": "browserify ./src/client/main.js -o ./docs/javascripts/bundle.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
-
   "_moduleAliases": {
-	"@server" : "src/server"
-  }, 
+    "@server": "src/server",
+    "@common": "src/common"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/franckEinstein90/covid-19-canada.git"
@@ -24,6 +23,12 @@
   },
   "homepage": "https://github.com/franckEinstein90/covid-19-canada#readme",
   "dependencies": {
-    "module-alias": "^2.2.2"
+    "express": "^4.17.1",
+    "module-alias": "^2.2.2",
+    "moment": "^2.24.0",
+    "request": "^2.88.2",
+    "sqlite3": "^4.1.1",
+    "underscore": "^1.9.2",
+    "validator": "^13.0.0"
   }
 }

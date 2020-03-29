@@ -28,6 +28,52 @@ const _setHeight = (element, height) => {
     element.height(height)
 }
 
+
+
+const _contentLayout = (contentViewport, screen) => {
+
+    let leftTopCss = {
+        top     : contentViewport.top + 5, 
+        height  : contentViewport.height / 2,
+        width   : contentViewport.width 
+    } 
+ 
+    if($('#leftOrTop').length){
+
+        if (screen.orientation === 'portrait'){
+            leftTopCss.top    = contentViewport.top
+            leftTopCss.height = contentViewport.height / 2
+            leftTopCss.width =  contentViewport.width
+        } else {
+            leftTopCss.width = contentViewport.width / 2 
+        } 
+       $('#leftOrTop').css( leftTopCss )
+    }
+
+    if($('#rightOrBottom').length){
+        let bottomOrRightCss = {
+            top: leftTopCss.top,  
+            height: contentViewport.height,
+            width: contentViewport.width/2, 
+            left: contentViewport.width/2 
+        } 
+ 
+
+        if (screen.orientation === 'portrait'){
+            bottomOrRightCss.top    = contentViewport.top + (contentViewport.height / 2) 
+            bottomOrRightCss.height = contentViewport.height / 2 
+            bottomOrRightCss.width  = contentViewport.width
+            bottomOrRightCss.left   = 0 
+        } else {
+
+        } 
+       $('#rightOrBottom').css( bottomOrRightCss)
+ 
+    }
+
+}
+
+
 const _configureLayout = ( app ) => {
 
     let screen           = _screenDimensions()
@@ -52,18 +98,14 @@ const _configureLayout = ( app ) => {
     }
     
     if($('#content').length) $('#content').css( contentViewport )
-    if($('#leftTop').length){
-        let leftTopCss = {
-            top  : contentViewport.top, 
-            height : contentViewport.height, 
-            width  : contentViewport.width / 2 
-        } 
-        $('#leftTop').css( leftTopCss )
-    }
+
+    _contentLayout(contentViewport, screen)
+
+
 }
 
 let bottomNavCss = screen => {
-    let height = screen.orientation === 'portrait' ? 55 : 30
+    let height = screen.orientation === 'portrait' ? 55 : 60 
     return {
         top: screen.height - height, 
         left: 0, 
@@ -79,12 +121,21 @@ let topNavCss = screen => {
     }
 }
 
+let bottomRightCss = screen => {
+    return {
+        top: 0,  
+        left: 0, 
+        height: 55 
+    }
+}
+
 
 const uiFrame = function( app ){
 
     app.ui.visualElements = {
-        topNav      : topNavCss, 
-        bottomNav   : bottomNavCss, 
+        topNav        : topNavCss, 
+        bottomNav     : bottomNavCss, 
+        rightOrBottom : bottomRightCss
     }   
 
     _configureLayout( app )
