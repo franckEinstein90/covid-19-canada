@@ -125,10 +125,6 @@ const addLocalDatabaseFeature = function( app ){
     return appDatabaseFeature( app ) 
     .then (localDb => {
         app.localDb = localDb
-        app.addFeature({
-            label: 'localDB', 
-            state: 'implemented'
-        })
         return app
     })
 }

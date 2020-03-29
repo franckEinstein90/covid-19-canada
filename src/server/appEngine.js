@@ -19,25 +19,32 @@ const _updateFromDB = function( app ){
             })
             provinces.forEach((healthServices, province)=>{
                 let uniqSet = _.uniq(healthServices)
-                debugger
             })
       })
 }
 
+const _runApp = ( app ) =>{
+    app.engine.say(`${app.metadata.appName} now running`)
+    _updateFromDB( app )
+    .then( _ => {
+       app.server.express.listen(app.data.defaultPort, ()=>console.log(`alive`))
+    }) 
+}
 
-const initAppEngine = function(app){
+const initAppEngine = function( app ){
+    return new Promise(resolve => {
+	    app.engine = {}
+        app.engine.say = msg => console.log(msg)
 
-	app.engine = {}
-	app.engine.say = msg => console.log(msg)
+        app.data = {
+            defaultPort : 3000
+        }
 
-    app.run = () =>{
-        app.engine.say(`${app.metadata.appName} now running`)
-        _updateFromDB( app )
-        .then( _ => {
-            debugger
-        }) 
-   }
-   return app
+        app.server = { }
+        require('@server/express').mountExpressRoutingSystem( app )
+        app.run = _ => _runApp( app )
+        return resolve( app )
+    })
 }
 
 module.exports = {

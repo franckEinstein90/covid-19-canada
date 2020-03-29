@@ -75,6 +75,11 @@ const featureSystem = function( app ){
         }, 
 
         add : function( feature ){
+            if('featureType' in feature){
+                if( feature.featureType === 'dataStore' ) {
+                    return require('@common/features/dataStore').newDataStore( app, feature)
+                }
+            }
             if(!('label' in feature)) throw 'error in feature definition'
             if(_features.has(feature.label)) throw "feature already exists"
             _features.set( feature.label, feature)
@@ -83,18 +88,13 @@ const featureSystem = function( app ){
     }
 }
 
-const addFeatureSystem = function( app ){
-
-    let features = featureSystem( app )
-    Object.defineProperty( app, 'features', {get: () => features.list})
-    app.addRequirement = features.addRequirement        
-    app.addComponent   = features.addComponent
-    app.Feature = Feature
-    app.addFeature = features.add
-    app.implements = features.implements
-    return app
+const mountFeatureSystem = function( app ){
+    return new Promise(resolve => {
+        app.features = featureSystem( app ) 
+        return resolve( app ) 
+    })
 }
 
 module.exports = {
-    addFeatureSystem
+   mountFeatureSystem 
 }
