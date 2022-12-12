@@ -23,7 +23,7 @@
   },
   "homepage": "https://github.com/franckEinstein90/covid-19-canada#readme",
   "dependencies": {
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "module-alias": "^2.2.2",
     "moment": "^2.24.0",
     "request": "^2.88.2",
